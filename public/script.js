@@ -33,19 +33,48 @@ journal.addEventListener('input', () => {
   charCount.textContent = journal.value.length + " characters";
 });
 
-// Load journal entries from localStorage
+// Load journal entries
 function loadLibrary() {
   const notes = JSON.parse(localStorage.getItem('journalLibrary') || "[]");
   library.innerHTML = "";
-  notes.forEach(note => {
+
+  notes.forEach((note, index) => {
     const div = document.createElement('div');
     div.className = 'library-entry';
-    div.innerHTML = `<span>${note.date}</span><br>${note.text}`;
+    div.innerHTML = `
+      <span>${note.date}</span><br>
+      <div class="note-text">${note.text}</div>
+      <button class="edit-btn" data-index="${index}">Edit</button>
+      <button class="delete-btn" data-index="${index}">Delete</button>
+    `;
     library.appendChild(div);
+  });
+
+  // Delete note
+  document.querySelectorAll('.delete-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = btn.getAttribute('data-index');
+      notes.splice(idx, 1);
+      localStorage.setItem('journalLibrary', JSON.stringify(notes));
+      loadLibrary();
+    });
+  });
+
+  // Edit note
+  document.querySelectorAll('.edit-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = btn.getAttribute('data-index');
+      const newText = prompt("Edit your note:", notes[idx].text);
+      if (newText !== null && newText.trim() !== "") {
+        notes[idx].text = newText.trim();
+        localStorage.setItem('journalLibrary', JSON.stringify(notes));
+        loadLibrary();
+      }
+    });
   });
 }
 
-// Save journal entry to localStorage
+// Save journal entry
 saveBtn.addEventListener('click', () => {
   const text = journal.value.trim();
   if (!text) {
@@ -60,6 +89,7 @@ saveBtn.addEventListener('click', () => {
   loadLibrary();
 });
 
+// Initialize
 newBtn.addEventListener('click', showQuote);
 showQuote();
 loadLibrary();

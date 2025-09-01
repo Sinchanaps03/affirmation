@@ -115,6 +115,13 @@ textarea:focus {
   max-width: 600px; 
   margin-top: 2rem; 
   text-align: left; 
+  max-height: 300px;      /* scrollable height */
+  overflow-y: auto;        /* enable vertical scroll */
+  padding: 10px;
+  border: 2px solid rgba(123,44,191,0.3);
+  border-radius: 12px;
+  background: #fff8;
+  box-shadow: 0 8px 20px rgba(123,44,191,0.15);
 }
 
 .library-entry { 
@@ -124,6 +131,7 @@ textarea:focus {
   border-radius: 12px; 
   box-shadow: 0 4px 16px rgba(123,44,191,0.2); 
   border-left: 4px solid var(--purple); 
+  word-wrap: break-word;
 }
 
 .library-entry span { 
@@ -131,6 +139,22 @@ textarea:focus {
   font-size: 0.9rem; 
   color: var(--purple-dark); 
 }
+
+.edit-btn, .delete-btn {
+  margin-top: 0.5rem;
+  margin-right: 0.5rem;
+  padding: 0.4em 1em;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  color: white;
+  transition: all 0.3s ease;
+}
+.edit-btn { background: var(--purple); }
+.edit-btn:hover { background: var(--purple-light); }
+.delete-btn { background: #e63946; }
+.delete-btn:hover { background: #f06292; }
 
 @keyframes gradientShift { 
   0% {background-position: 0% 50%;} 
