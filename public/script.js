@@ -1,4 +1,4 @@
-const quotes = [
+const quotes = [ 
   "Believe in yourself.",
   "You are stronger than you think.",
   "Every day is a second chance.",
